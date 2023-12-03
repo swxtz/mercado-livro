@@ -13,15 +13,17 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/customeers")
 class CustomeerController {
+
+    val customeers = mutableListOf<CustomeerModel>()
     @GetMapping
-    fun helloWorld(): CustomeerModel {
-        return CustomeerModel("1", "Gustavo", "email@email.com")
+    fun getCustomeer(): MutableList<CustomeerModel> {
+        return customeers
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     fun create(@RequestBody customeer: PostCustomeer) {
-        println(customeer)
+        customeers.add(CustomeerModel(customeers.size + 1, customeer.name, customeer.email))
     }
 
 }
