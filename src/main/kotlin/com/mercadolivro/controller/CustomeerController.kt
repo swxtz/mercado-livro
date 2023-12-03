@@ -1,11 +1,14 @@
 package com.mercadolivro.controller
 
-import com.mercadolivro.controller.request.PostCustomeer
+import  com.mercadolivro.controller.request.PostCustomeer
+import com.mercadolivro.controller.request.PutCustomeer
 import com.mercadolivro.model.CustomeerModel
 import org.springframework.http.HttpStatus
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.ResponseStatus
@@ -25,7 +28,9 @@ class CustomeerController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     fun create(@RequestBody customeer: PostCustomeer) {
-        customeers.add(CustomeerModel(customeers.size + 1, customeer.name, customeer.email))
+        val id = customeers.size + 1
+        customeers.add(CustomeerModel(id, customeer.name, customeer.email))
+        println("usuario criado, id :" + id)
     }
 
     @GetMapping("/{id}")
@@ -33,4 +38,21 @@ class CustomeerController {
             return customeers.filter { it.id == id }.first()
     }
 
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    fun updateCustomeer(@PathVariable id: Int, @RequestBody customeer: PutCustomeer) {
+        customeers.filter { it.id == id }.first().let {
+            it.name = customeer.name
+            it.email = customeer.email
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.GONE)
+    fun deleteCustomeer(@PathVariable id: Int) {
+        customeers.removeIf {
+            it.id == id
+        }
+    }
+    
 }
