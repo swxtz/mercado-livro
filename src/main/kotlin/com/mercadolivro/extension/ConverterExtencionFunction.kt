@@ -1,13 +1,13 @@
 package com.mercadolivro.extension
 
-import com.mercadolivro.controller.request.PostCustomeer
-import com.mercadolivro.controller.request.PutCustomeer
-import com.mercadolivro.model.CustomeerModel
+import com.mercadolivro.controller.request.PostCustomer
+import com.mercadolivro.controller.request.PutCustomer
+import com.mercadolivro.model.CustomerModel
 
-fun PostCustomeer.toCustomeerModel(): CustomeerModel {
-    return CustomeerModel(name = this.name, email = this.email)
+fun PostCustomer.toCustomerModel(): CustomerModel {
+    return CustomerModel(name = this.name, email = this.email)
 }
 
-fun PutCustomeer.toCustomeerModel(id: Int): CustomeerModel {
-    return CustomeerModel(id = id,name = this.name, email = this.email)
+fun PutCustomer.toCustomerModel(id: Int): CustomerModel {
+    return CustomerModel(id = id,name = this.name, email = this.email)
 }

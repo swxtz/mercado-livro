@@ -1,6 +1,6 @@
 package com.mercadolivro.controller.request
 
-data class PutCustomeer (
+data class PutCustomer (
     var name: String,
     var email: String,
 )
