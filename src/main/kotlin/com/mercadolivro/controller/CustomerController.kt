@@ -7,6 +7,7 @@ import com.mercadolivro.model.CustomerModel
 import com.mercadolivro.service.CustomerService
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
+import java.util.*
 
 @RestController
 @RequestMapping("/customeers")
@@ -16,7 +17,7 @@ class CustomerController(
 
 
     @GetMapping
-    fun getAll(@RequestParam query: String?): List<CustomerModel> {
+    fun getAll(@RequestParam query: String?): Iterable<CustomerModel> {
         return customerService.getAll(query)
     }
 
@@ -27,8 +28,8 @@ class CustomerController(
     }
 
     @GetMapping("/{id}")
-    fun getCustomeer(@PathVariable id: Int): CustomerModel {
-        return customerService.getCustomer(id)
+    fun getCustomeer(@PathVariable id: Int):  CustomerModel{
+        return customerService.getCustomer(id).orElseThrow()
     }
 
     @PutMapping("/{id}")
