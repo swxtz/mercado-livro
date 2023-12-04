@@ -11,13 +11,11 @@ class CustomerService (
 ) {
     val customers = mutableListOf<CustomerModel>()
 
-    fun getAll(query: String?): Iterable<CustomerModel> {
+    fun getAll(query: String?): List<CustomerModel> {
         query?.let {
-            return customers.filter {
-                it.name.contains(query, true)
-            }
+            return customerRepository.findByName(query)
         }
-        return customerRepository.findAll()
+        return customerRepository.findAll().toList()
     }
 
     fun create(customer: CustomerModel) {
@@ -37,9 +35,7 @@ class CustomerService (
     }
 
     fun deleteCustomer(id: Int) {
-        customers.removeIf {
-            it.id == id
-        }
+        customerRepository.deleteById(id)
     }
 
 }
